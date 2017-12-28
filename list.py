@@ -34,6 +34,9 @@ while True:
     elif new_item == "SHOW":
         show()
         continue
+    elif new_item[0] == "s":
+        print("Sorry, you can't have that.")
+        continue    
     add_to_list(new_item)
 
 show()
