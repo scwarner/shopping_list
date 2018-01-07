@@ -1,14 +1,24 @@
+import os
+
 # make a list to hold onto items
 shopping_list = []
 
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
 # show function to print out list
 def show():
+    clear_screen()
     print("Here is your list: ")
+    index = 1
     for item in shopping_list:
-        print(item)
+        print("{}. {}".format(index, item))
+        index += 1
+    print("-" * 10)
 
  # print out instructions on how to use app
-def help():        
+def help():    
+    clear_screen()    
     print("""
 Enter 'DONE' to stop adding items.
 Enter 'HELP' to see instructions.
@@ -18,7 +28,23 @@ Enter 'REMOVE' to delete last item from list.
 
 # add new items
 def add_to_list(new_item):
-    shopping_list.append(new_item)
+    show()
+    if len(shopping_list):
+        position = input("Where should I add {}?\n"
+                        "Press ENTER to add to the end of the list\n"
+                        "> ".format(new_item))
+    else:
+        position = 0
+    try:
+        position = abs(int(position))
+    except ValueError:
+        position = None 
+    if position is not None:
+        shopping_list.insert(position-1, new_item)
+    else:    
+        shopping_list.append(new_item)   
+    
+    show()
     print("Added {}. List now has {} items.".format(new_item, len(shopping_list)))
 
 def remove_item():
@@ -32,20 +58,18 @@ help()
 while True:
     new_item = input("> ")
     # quit the app
-    if new_item == 'DONE':
+    if new_item.upper() == 'DONE' or new_item.upper() == 'QUIT':
         break
-    elif new_item == 'HELP':
+    elif new_item.upper() == 'HELP':
         help()
         continue    
-    elif new_item == "SHOW":
+    elif new_item.upper() == "SHOW":
         show()
         continue
-    elif new_item[0] == "s":
-        print("Sorry, you can't have that.")
-        continue  
     elif new_item == 'REMOVE':
         remove_item()
-        continue     
-    add_to_list(new_item)
+        continue
+    else:  
+        add_to_list(new_item)
 
 show()
