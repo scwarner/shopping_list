@@ -18,12 +18,13 @@ def show():
 
  # print out instructions on how to use app
 def help():    
-    clear_screen()    
+    clear_screen()  
+    print("What should we pick up at the store?")  
     print("""
 Enter 'DONE' to stop adding items.
 Enter 'HELP' to see instructions.
 Enter 'SHOW' to see current list.
-Enter 'REMOVE' to delete last item from list.
+Enter 'REMOVE' to delete item from list.
 """)
 
 # add new items
@@ -48,10 +49,14 @@ def add_to_list(new_item):
     print("Added {}. List now has {} items.".format(new_item, len(shopping_list)))
 
 def remove_item():
-    print("Say 'goodbye' to {}.".format(shopping_list[-1]))
-    shopping_list.pop(-1)
+    show()
+    what_to_remove = input("What do you want to remove?\n> ")
+    try:
+        shopping_list.remove(what_to_remove)
+    except ValueError:
+        pass
+    show()
 
-print("What should we pick up at the store?")
 help()
 
 # ask for new items
@@ -66,7 +71,7 @@ while True:
     elif new_item.upper() == "SHOW":
         show()
         continue
-    elif new_item == 'REMOVE':
+    elif new_item.upper() == 'REMOVE':
         remove_item()
         continue
     else:  
