@@ -17,7 +17,7 @@ def show():
     print("-" * 10)
 
  # print out instructions on how to use app
-def help():    
+def display_help():    
     clear_screen()  
     print("What should we pick up at the store?")  
     print("""
@@ -57,7 +57,7 @@ def remove_item():
         pass
     show()
 
-help()
+display_help()
 
 # ask for new items
 while True:
@@ -66,7 +66,7 @@ while True:
     if new_item.upper() == 'DONE' or new_item.upper() == 'QUIT':
         break
     elif new_item.upper() == 'HELP':
-        help()
+        display_help()
         continue    
     elif new_item.upper() == "SHOW":
         show()
